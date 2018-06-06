@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "dark-sky-api": "^0.6.3",
+    "dotenv": "^6.0.0",
     "react": "^16.4.0",
     "react-at-rest": "^2.0.11",
     "react-dom": "^16.4.0",
