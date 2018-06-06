@@ -1,0 +1,18 @@
+{
+  "name": "react-weather-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "dark-sky-api": "^0.6.3",
+    "react": "^16.4.0",
+    "react-at-rest": "^2.0.11",
+    "react-dom": "^16.4.0",
+    "react-scripts": "^1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
