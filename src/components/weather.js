@@ -3,8 +3,6 @@ import DarkSkyApi from 'dark-sky-api';
 
 DarkSkyApi.apiKey = process.env.REACT_APP_DARK_SKY_KEY;
 
-console.log(process.env.REACT_APP_DARK_SKY_KEY)
-
 const position = {
 	latitude: 41.254079, 
 	longitude: -95.958667
