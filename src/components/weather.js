@@ -10,6 +10,8 @@ const position = {
 
 const weatherPromise = DarkSkyApi.loadCurrent(position);
 
+const forecastPromise = DarkSkyApi.loadForecast(position);
+
 const directionName = (d) => {
 	switch (d) {
 		case 'S':
@@ -29,27 +31,42 @@ class Weather extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			weatherData: {}
+			weatherData: {},
+			forecastData: {}
 		};
 	}
 	componentDidMount() {
 		var self = this;
-		weatherPromise.then(data => {
+		weatherPromise.then(wdata => {
 			self.setState({
-				weatherData: data
+				weatherData: wdata
+			})
+		})
+		forecastPromise.then(fdata => {
+			self.setState({
+				forecastData: fdata
 			})
 		})
 	}
 	render() {
 		const weather = this.state.weatherData;
+		const forecast = this.state.forecastData;
 
-		console.log(weather);
+		if (forecast && forecast.daily) {
+			console.log(forecast.daily.data[0]);
+		};
+
 		return (
-			<hgroup>
-				<h1>{weather.apparentTemperature}&deg; &amp; {weather.summary}</h1>
-				<h2>{weather.humidity} relative humidity</h2>
-				<h2>{weather.windSpeed} mph winds from the {directionName(weather.windDirection)} with gusts up to {weather.windGust} mph</h2>
-			</hgroup>
+			<div>
+				<hgroup>
+					<h1>{weather.apparentTemperature}&deg; &amp; {weather.summary}</h1>
+					<h2>{weather.humidity} relative humidity</h2>
+					<h3>{weather.windSpeed} mph winds from the {directionName(weather.windDirection)} with gusts up to {weather.windGust} mph</h3>
+				</hgroup>
+				{ forecast.daily &&
+					<p>{forecast.daily.summary}</p>
+				}
+			</div>
 		);
 	}
 }
