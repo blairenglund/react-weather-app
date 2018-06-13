@@ -2,3 +2,17 @@
   text-align: center;
   padding: 0 2rem;
 }
+
+.forecast_high {
+	color: transparent;
+	background: linear-gradient(to bottom, rgba(245,70,0,1) 0%,rgba(211,17,61,1) 100%);;
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
+.forecast_low {
+	color: transparent;
+	background: linear-gradient(to bottom, rgba(0,180,200,1) 0%,rgba(14,103,145,1) 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+}

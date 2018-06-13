@@ -8,6 +8,24 @@ const position = {
 	longitude: -95.958667
 };
 
+var options = {
+	enableHighAccuracy: true,
+	timeout: 5000,
+	maximumAge: 0
+};
+
+function success(pos) {
+	console.log(pos)
+	position.latitude = pos.coords.latitude;
+	position.longitude = pos.coords.longitude;
+}
+
+function error(err) {
+	console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
 const weatherPromise = DarkSkyApi.loadCurrent(position);
 
 const forecastPromise = DarkSkyApi.loadForecast(position);
@@ -52,16 +70,15 @@ class Weather extends Component {
 		const weather = this.state.weatherData;
 		const forecast = this.state.forecastData;
 
-		if (forecast && forecast.daily) {
-			console.log(forecast.daily.data[0]);
-		};
-
 		return (
 			<div>
 				<hgroup>
 					<h1>{weather.apparentTemperature}&deg; &amp; {weather.summary}</h1>
-					<h2>{weather.humidity} relative humidity</h2>
-					<h3>{weather.windSpeed} mph winds from the {directionName(weather.windDirection)} with gusts up to {weather.windGust} mph</h3>
+					{ forecast.daily &&
+						<h2><span className="forecast_high">{forecast.daily.data[0].apparentTemperatureHigh}&deg;</span> &mdash; <span className="forecast_low">{forecast.daily.data[0].apparentTemperatureLow}&deg;</span></h2>
+					}
+					<h3>{weather.humidity} relative humidity.</h3>
+					<h4>{weather.windSpeed} mph winds from the {directionName(weather.windDirection)} with gusts up to {weather.windGust} mph.</h4>
 				</hgroup>
 				{ forecast.daily &&
 					<p>{forecast.daily.summary}</p>
