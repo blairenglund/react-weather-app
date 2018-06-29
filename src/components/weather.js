@@ -3,32 +3,9 @@ import DarkSkyApi from 'dark-sky-api';
 
 DarkSkyApi.apiKey = process.env.REACT_APP_DARK_SKY_KEY;
 
-const position = {
-	latitude: 41.254079, 
-	longitude: -95.958667
-};
+const weatherPromise = DarkSkyApi.loadCurrent();
 
-var options = {
-	enableHighAccuracy: true,
-	timeout: 5000,
-	maximumAge: 0
-};
-
-function success(pos) {
-	console.log(pos)
-	position.latitude = pos.coords.latitude;
-	position.longitude = pos.coords.longitude;
-}
-
-function error(err) {
-	console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-navigator.geolocation.getCurrentPosition(success, error, options);
-
-const weatherPromise = DarkSkyApi.loadCurrent(position);
-
-const forecastPromise = DarkSkyApi.loadForecast(position);
+const forecastPromise = DarkSkyApi.loadForecast();
 
 const directionName = (d) => {
 	switch (d) {
